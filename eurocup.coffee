@@ -3,7 +3,6 @@ if Meteor.is_client
     Meteor.startup ->
         $('.nav').hide()
         $('.container').append Meteor.ui.render(Template.login)
-
         $('#sign_in').submit ->
             Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, person) ->
                 
