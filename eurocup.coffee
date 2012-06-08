@@ -1,14 +1,9 @@
 if Meteor.is_client
-    
+
     Meteor.startup ->
 
-        if rendered?
-            return true
-
-        window.rendered = true
-
-        $('.nav').hide()
         $('.container').append Meteor.ui.render(Template.login)
+
         $('#sign_in').submit (e) ->
 
             e.preventDefault()
@@ -91,7 +86,6 @@ if Meteor.is_client
             $('#S2').change ->
                 $('#winner').html('<option>' + $('#S1').val() + '</option><option>' + $('#S2').val() + '</option>')
 
-
         $('#save').click ->
 
             $('.container select').each ->
@@ -104,5 +98,25 @@ if Meteor.is_client
                 Meteor.call 'add_person', window.currentPerson
                 console.log window.currentPerson
 
-if Meteor.is_server
-    Meteor.startup ->
+        $('#leaderboard').click ->
+
+            Meteor.call "get_all_people", (error, results) ->
+                leaderboard = []
+
+                $.each results, (index, person) ->
+
+                    if person.name != "admin"
+                        leaderboard.push(name: person.name, score: calculate_persons_score person)
+
+
+
+                $('.row').hide()
+                $('.container').append Meteor.ui.render(Template.leaderboards)
+
+                console.log leaderboard
+
+                place = 0
+                _.each leaderboard, (person) ->
+                    place++
+                    $('#leaderboard_list tbody').empty()
+                    $('#leaderboard_list tbody').append '<tr><td>'+place+'</td><td>'+person.name+'</td><td>'+person.score+'</td></tr>'
