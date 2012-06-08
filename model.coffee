@@ -14,13 +14,13 @@ People.default_data =
             D1 : null
             D2 : null
         quarters :
-            A : null
-            B : null
-            C : null
-            D : null
+            Q1 : null
+            Q2 : null
+            Q3 : null
+            Q4 : null
         semis : 
-            A : null 
-            B : null
+            S1 : null 
+            S2 : null
         finals : 
             winner: null
         tiebreaker : null
@@ -44,6 +44,9 @@ Meteor.methods(
 
     get_all_people : ->
         People.find({}).fetch()
+
+    admin_update : (new_data) ->
+        People.update({name : "admin"}, {$set : new_data})
 )
 
 if Meteor.is_server
