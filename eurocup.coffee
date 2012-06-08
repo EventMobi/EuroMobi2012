@@ -1,9 +1,18 @@
 if Meteor.is_client
     
     Meteor.startup ->
+
+        if rendered?
+            return true
+
+        window.rendered = true
+
         $('.nav').hide()
         $('.container').append Meteor.ui.render(Template.login)
-        $('#sign_in').submit ->
+        $('#sign_in').submit (e) ->
+
+            e.preventDefault()
+
             Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, person) ->
                 
                 Meteor.call 'add_person', {name: $('#sign_in .input-large').val()}
@@ -84,7 +93,7 @@ if Meteor.is_client
             $('#D1').change()
             $('#D2').change()
 
-        #   true
+            true
 
         $('#save').click ->
             $('.container select').each ->
