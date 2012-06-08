@@ -3,7 +3,12 @@
 currentPerson = null
 
 populateUI = (person) ->
+    console.log ('Picks: ')
     console.log(person.picks)
+
+    $.each person.picks, (pick, team)->
+        $('#' + pick).val(team)
+        $('#' + pick).change()
     
 
 People = new Meteor.Collection("people")
@@ -51,7 +56,7 @@ Meteor.methods(
         People.find({}).fetch()
 
     admin_update : (new_data) ->
-        People.update({name : "admin"}, {$set : new_data})
+        People.update({name : "admin"}, new_data)
 )
 
 if Meteor.is_server

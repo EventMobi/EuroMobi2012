@@ -13,18 +13,25 @@ if Meteor.is_client
 
             e.preventDefault()
 
-            Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, person) ->
-                
-                Meteor.call 'add_person', {name: $('#sign_in .input-large').val()}
-                Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, new_person) ->
-                    window.currentPerson = new_person
+            if $('#sign_in .input-large').val() is 'admin'
+                Meteor.call 'get_person', 'admin', (e, person) ->
+                    window.currentPerson = person
+                    populateUI(person)
+  
+            else  
 
-                    if not window.currentPerson.picks
-                            window.currentPerson.picks = {}
+                Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, person) ->
+                    
+                    Meteor.call 'add_person', {name: $('#sign_in .input-large').val()}
+                    Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, new_person) ->
+                        window.currentPerson = new_person
 
-                    console.log window.currentPerson.name
+                        if not window.currentPerson.picks
+                                window.currentPerson.picks = {}
 
-                    populateUI(new_person)
+                        console.log window.currentPerson.name
+
+                        populateUI(new_person)
 
             $('#sign_in').hide()
             $('.container').append Meteor.ui.render(Template.brackets)
@@ -84,23 +91,18 @@ if Meteor.is_client
             $('#S2').change ->
                 $('#winner').html('<option>' + $('#S1').val() + '</option><option>' + $('#S2').val() + '</option>')
 
-            $('#A1').change()
-            $('#A2').change()
-            $('#B1').change()
-            $('#B2').change()
-            $('#C1').change()
-            $('#C2').change()
-            $('#D1').change()
-            $('#D2').change()
-
-            true
 
         $('#save').click ->
+
             $('.container select').each ->
                 window.currentPerson.picks[$(this).attr('id')] = $(this).val()
-
-            console.log window.currentPerson
-            Meteor.call 'add_person', window.currentPerson
+            
+            if window.currentPerson.name is 'admin'
+                Meteor.call 'admin_update', window.currentPerson
+                console.log window.currentPerson
+            else 
+                Meteor.call 'add_person', window.currentPerson
+                console.log window.currentPerson
 
 if Meteor.is_server
     Meteor.startup ->
