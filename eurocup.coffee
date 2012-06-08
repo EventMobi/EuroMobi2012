@@ -75,7 +75,14 @@ if Meteor.is_client
             $('#S2').change ->
                 $('#winner').html('<option>' + $('#S1').val() + '</option><option>' + $('#S2').val() + '</option>')
 
-
+            $('#A1').change()
+            $('#A2').change()
+            $('#B1').change()
+            $('#B2').change()
+            $('#C1').change()
+            $('#C2').change()
+            $('#D1').change()
+            $('#D2').change()
 
         #   true
 
