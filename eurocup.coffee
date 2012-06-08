@@ -29,8 +29,8 @@ if Meteor.is_client
                         populateUI(new_person)
 
             $('#sign_in').hide()
-            $('.container').append Meteor.ui.render(Template.brackets)
 
+            $('.container').append Meteor.ui.render(Template.brackets)
 
             $('#A1').change ->
                 $('#Q1').html('<option>' + $('#A1').val() + '</option><option>' + $('#B2').val() + '</option>')
@@ -97,6 +97,13 @@ if Meteor.is_client
             else 
                 Meteor.call 'add_person', window.currentPerson
                 console.log window.currentPerson
+
+            $('#success_message').show();
+
+            setTimeout ->
+                $('#success_message').fadeOut()
+            , 1000
+
 
         $('#leaderboard').click ->
 

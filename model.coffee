@@ -3,8 +3,9 @@
 currentPerson = null
 
 populateUI = (person) ->
-    console.log ('Picks: ')
-    console.log(person.picks)
+    $('#save').show();
+    $('#welcome_message').show();
+    $('#welcome_message').html('Hey ' + window.currentPerson.name + '!')
 
     $.each person.picks, (pick, team)->
         $('#' + pick).val(team)
