@@ -103,9 +103,11 @@ if Meteor.is_client
             Meteor.call "get_all_people", (error, results) ->
                 leaderboard = []
 
+
+
                 $.each results, (index, person) ->
 
-                    if person.name != "admin"
+                    if person.name != "admin" and person.picks?
                         leaderboard.push(name: person.name, score: calculate_persons_score person)
 
 
@@ -116,7 +118,7 @@ if Meteor.is_client
                 console.log leaderboard
 
                 place = 0
+                $('#leaderboard_list tbody').empty()
                 _.each leaderboard, (person) ->
                     place++
-                    $('#leaderboard_list tbody').empty()
                     $('#leaderboard_list tbody').append '<tr><td>'+place+'</td><td>'+person.name+'</td><td>'+person.score+'</td></tr>'
