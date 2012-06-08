@@ -10,35 +10,34 @@ People = new Meteor.Collection("people")
 People.default_data =
     name : null
     picks :
-        groups :
-            A1 : null
-            A2 : null
-            B1 : null
-            B2 : null
-            C1 : null
-            C2 : null
-            D1 : null
-            D2 : null
-        quarters :
-            Q1 : null
-            Q2 : null
-            Q3 : null
-            Q4 : null
-        semis :
-            S1 : null
-            S2 : null
-        finals :
-            winner: null
+        A1 : null
+        A2 : null
+        B1 : null
+        B2 : null
+        C1 : null
+        C2 : null
+        D1 : null
+        D2 : null
+        Q1 : null
+        Q2 : null
+        Q3 : null
+        Q4 : null
+        S1 : null
+        S2 : null
+        winner: null
         tiebreaker : null
 
 Meteor.methods(
     add_person : (person) ->
         # if already exists, do nothing
         existent = People.findOne(name : person.name)
-        if existent?
+        if existent? and existent.picks?
             return new Meteor.Error(403, "Person already exists", "Sorry, but you only get one chance")
         else
-            id = People.insert(person)
+            if existent?
+                id = People.update({name: existent.name}, person)
+            else
+                id = People.insert(person)
         return id
 
     get_person : (name) ->
