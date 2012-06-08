@@ -79,6 +79,14 @@ if Meteor.is_client
             $('#S2').change ->
                 $('#winner').html('<option>' + $('#S1').val() + '</option><option>' + $('#S2').val() + '</option>')
 
+            $('#A1').change()
+            $('#A2').change()
+            $('#B1').change()
+            $('#B2').change()
+            $('#C1').change()
+            $('#C2').change()
+            $('#D1').change()
+            $('#D2').change()
 
         $('#save').click ->
             $('.container select').each ->
@@ -106,6 +114,3 @@ if Meteor.is_client
 
                 _.each leaderboard, (person) ->
                     $('#leaderboard_list').append '<li>Name: '+person.name+' Score: '+person.score+'</li>'
-
-if Meteor.is_server
-    Meteor.startup ->
