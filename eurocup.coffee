@@ -112,5 +112,8 @@ if Meteor.is_client
 
                 console.log leaderboard
 
+                place = 0
                 _.each leaderboard, (person) ->
-                    $('#leaderboard_list').append '<li>Name: '+person.name+' Score: '+person.score+'</li>'
+                    place++
+                    $('#leaderboard_list tbody').empty()
+                    $('#leaderboard_list tbody').append '<tr><td>'+place+'</td><td>'+person.name+'</td><td>'+person.score+'</td></tr>'
