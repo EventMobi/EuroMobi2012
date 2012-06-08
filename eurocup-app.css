@@ -1,0 +1,49 @@
+/* CSS declarations go here */
+.group {
+	width: 200px;
+}
+
+.group label {
+	float: left;
+}
+
+.span2 {
+
+	width: 250px;
+}
+
+.bracket {
+
+	margin-top: 40px;
+
+}
+
+.quarter h4 {
+	margin-bottom: 10px;
+}
+
+.semi .bracket {
+	margin-top: 80px;
+}
+
+.semi h4 {
+	margin-top: 35px;
+	margin-bottom: 40px;
+}
+
+.semi_2 {
+	padding-top: 40px;
+}
+
+.final {
+	margin-top: 120px;
+}
+
+.final h4 {
+	margin-top: 100px;
+	margin-bottom: 120px;
+}
+
+.champion {
+	margin-top: 250px;
+}

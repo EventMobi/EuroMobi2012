@@ -1,5 +1,11 @@
 # Shared code - server and client
 
+currentPerson = null
+
+populateUI = (person) ->
+    console.log(person.picks)
+    
+
 People = new Meteor.Collection("people")
 People.default_data = 
     name : null
@@ -40,7 +46,7 @@ Meteor.methods(
         if result?
             return result
         else
-            Meteor.Error(404, 'No result', 'Sign up first!')
+            return false
 
     get_all_people : ->
         People.find({}).fetch()

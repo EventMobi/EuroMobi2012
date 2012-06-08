@@ -1,0 +1,100 @@
+<head>
+  <title>EuroMobi 2012</title>
+</head>
+
+<body>
+	
+	<div class = "container">
+
+		<div class="page-header">
+			<h1>EuroMobi 2012 </h1>
+		</div>
+
+		<ul class="nav nav-pills">
+        	<li class="active"><a href="#">Brackets</a></li>
+        	<li><a href="#">Leaderboard</a></li>
+        </ul>
+
+    </div>
+
+	<br /><br />
+
+</body>
+
+<template name="login">
+
+	<form class="well form-inline" id="sign_in">
+	  <input type="text" class="input-large" placeholder="Enter your name">
+	  <button type="submit" class="btn" >Sign in</button>
+	</form>
+
+</template>
+
+<template name="brackets">
+
+	<div class="row">
+
+		<div class="quarter span2">
+			<div class="bracket">
+				A1: <input type="text" id="A1" class="pick first_pick" >
+				<h4>vs</h4>
+				B2: <input type="text" id="B2" class="pick second_pick" >
+			</div>
+
+			<div class="bracket">
+				C1: <input type="text" id="C1" class="pick first_pick" >
+				<h4>vs</h4>
+				D2: <input type="text" id="D2" class="pick second_pick" >
+			</div>
+
+			<div class="bracket">
+				A2: <input type="text" id="A2" class="pick first_pick" >
+				<h4>vs</h4>
+				B1: <input type="text" id="B1" class="pick second_pick" >
+			</div>
+
+			<div class="bracket">
+				D1: <input type="text" id="D1" class="pick first_pick" >
+				<h4>vs</h4>
+				C2: <input type="text" id="C2" class="pick second_pick" >
+			</div>
+
+		</div>
+
+		<div class="semi span2">
+
+			<div class="semi_1 bracket">
+				<input type="text" id="Q1" class="pick first_pick" >
+				<h4>vs</h4>
+				<input type="text" id="Q2" class="pick second_pick" >
+			</div>
+
+			<div class="semi_2 bracket">
+				<input type="text" id="Q3" class="pick first_pick" >
+				<h4>vs</h4>
+				<input type="text" id="Q4" class="pick second_pick" >
+			</div>
+
+		</div>
+
+		<div class="final span2">
+
+			<div class="bracket">
+				<input type="text" id="S1" class="pick first_pick" >
+				<h4>vs</h4>
+				<input type="text" id="S2" class="pick second_pick" >
+			</div>
+
+		</div>
+
+		<div class="champion span2">
+
+			<div class="bracket">
+				<input type="text" id="winner" class="pick first_pick" >
+			</div>
+			
+		</div>
+
+	</div>
+	
+</template>
