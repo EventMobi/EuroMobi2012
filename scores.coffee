@@ -1,25 +1,21 @@
 Meteor.call("add_person", {
     name : "Bijan6"
     picks :
-        groups :
-            A1 : "Greence"
-            A2 : "Polance"
-            B1 : "Pontugal"
-            B2 : "Jermaney"
-            C1 : "Espoon"
-            C2 : "Eyetaly"
-            D1 : "Fancie"
-            D2 : "Sveeden"
-        quarters :
-            Q1 : "Greence"
-            Q2 : "Jermaney"
-            Q3 : "Espoon"
-            Q4 : "Fancie"
-        semis :
-            S1 : "Jermaney"
-            S2 : "Espoon"
-        finals :
-            winner: "Espoon"
+        A1 : "Greence"
+        A2 : "Polance"
+        B1 : "Pontugal"
+        B2 : "Jermaney"
+        C1 : "Espoon"
+        C2 : "Eyetaly"
+        D1 : "Fancie"
+        D2 : "Sveeden"
+        Q1 : "Greence"
+        Q2 : "Jermaney"
+        Q3 : "Espoon"
+        Q4 : "Fancie"
+        S1 : "Jermaney"
+        S2 : "Espoon"
+        winner: "Espoon"
         tiebreaker : 12
     },
     (error, result) ->
@@ -32,13 +28,10 @@ calculate_persons_score = (person) ->
 
     admin = People.findOne({name: "admin"})
 
-    console.log person.picks
-    console.log 'here'
-    console.log admin
-    total_score = calculate_group_stage_score person.picks.groups, admin.picks.groups
-    total_score = total_score + calculate_quarters_score person.picks.quarters, admin.picks.quarters
-    total_score = total_score + calculate_semis_score person.picks.semis, admin.picks.semis
-    total_score = total_score + calculate_finals_score person.picks.finals.winner, admin.picks.finals.winner
+    total_score = calculate_group_stage_score person.picks, admin.picks
+    total_score = total_score + calculate_quarters_score person.picks, admin.picks
+    total_score = total_score + calculate_semis_score person.picks, admin.picks
+    total_score = total_score + calculate_finals_score person.picks.winner, admin.picks.winner
     total_score = total_score + calculate_tiebreaker_score person.picks.tiebreaker, admin.picks.tiebreaker
 
     total_score
@@ -127,14 +120,10 @@ calculate_tiebreaker_score = (tiebreaker, admin_picks) ->
         0
 
 populate_leaderboard = (collection) ->
-    console.log collection
     leaderboard = []
     Meteor.call "get_all_people", (error, results) ->
-        console.log results
         _.each results, (person) ->
             if person.name != "admin"
-                console.log person
                 leaderboard.push(name: person.name, score: calculate_persons_score person)
-                console.log "1"
 
             console.log leaderboard
