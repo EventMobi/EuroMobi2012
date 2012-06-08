@@ -1,9 +1,9 @@
 # Shared code - server and client
 
 People = new Meteor.Collection("people")
-People.default_data = 
+People.default_data =
     name : null
-    picks : 
+    picks :
         groups :
             A1 : null
             A2 : null
@@ -18,10 +18,10 @@ People.default_data =
             Q2 : null
             Q3 : null
             Q4 : null
-        semis : 
-            S1 : null 
+        semis :
+            S1 : null
             S2 : null
-        finals : 
+        finals :
             winner: null
         tiebreaker : null
 
@@ -50,12 +50,12 @@ Meteor.methods(
 )
 
 if Meteor.is_server
-    
+
     # Publish all the people
     Meteor.publish 'people', () -> People.find({}).fetch()
 
     Meteor.startup ->
-        if People.find().count() == 0
+        if People.findOne({name:"admin"}) == undefined
             admin = People.default_data
             admin.name = "admin"
             People.insert(admin)
