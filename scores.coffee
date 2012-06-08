@@ -90,9 +90,7 @@ calculate_semis_score = (semis_picks, admin_picks) =>
     0 if _.isEmpty(semis_picks)
 
     score = score + 8 if semis_picks.S1 is admin_picks.S1
-    console.log score
     score = score + 8 if semis_picks.S2 is admin_picks.S2
-    console.log score
     score
 
 calculate_finals_score = (finals_picks, admin_picks) ->
@@ -118,12 +116,3 @@ calculate_tiebreaker_score = (tiebreaker, admin_picks) ->
         10
     else
         0
-
-populate_leaderboard = (collection) ->
-    leaderboard = []
-    Meteor.call "get_all_people", (error, results) ->
-        _.each results, (person) ->
-            if person.name != "admin"
-                leaderboard.push(name: person.name, score: calculate_persons_score person)
-
-            console.log leaderboard
