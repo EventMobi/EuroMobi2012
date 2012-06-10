@@ -12,19 +12,17 @@ if Meteor.is_client
                 Meteor.call 'get_person', 'admin', (e, person) ->
                     window.currentPerson = person
                     populateUI(person)
-  
-            else  
+
+            else
 
                 Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, person) ->
-                    
+
                     Meteor.call 'add_person', {name: $('#sign_in .input-large').val()}
                     Meteor.call 'get_person', $('#sign_in .input-large').val(), (e, new_person) ->
                         window.currentPerson = new_person
 
                         if not window.currentPerson.picks
                                 window.currentPerson.picks = {}
-
-                        console.log window.currentPerson.name
 
                         populateUI(new_person)
 
@@ -90,13 +88,11 @@ if Meteor.is_client
 
             $('.container select').each ->
                 window.currentPerson.picks[$(this).attr('id')] = $(this).val()
-            
+
             if window.currentPerson.name is 'admin'
                 Meteor.call 'admin_update', window.currentPerson
-                console.log window.currentPerson
-            else 
+            else
                 Meteor.call 'add_person', window.currentPerson
-                console.log window.currentPerson
 
             $('#success_message').show();
 
@@ -110,22 +106,60 @@ if Meteor.is_client
             Meteor.call "get_all_people", (error, results) ->
                 leaderboard = []
 
-
-
                 $.each results, (index, person) ->
 
                     if person.name != "admin" and person.picks?
                         leaderboard.push(name: person.name, score: calculate_persons_score person)
 
+                _.sortBy leaderboard, (person) ->
+                    person.score
 
 
                 $('.row').hide()
+                $('#leaderboard_list').remove()
                 $('.container').append Meteor.ui.render(Template.leaderboards)
-
-                console.log leaderboard
 
                 place = 0
                 $('#leaderboard_list tbody').empty()
                 _.each leaderboard, (person) ->
                     place++
-                    $('#leaderboard_list tbody').append '<tr><td>'+place+'</td><td>'+person.name+'</td><td>'+person.score+'</td></tr>'
+                    $('#leaderboard_list tbody').append '<tr id="'+person.name+'"><td>'+place+'</td><td>'+person.name+'</td><td>'+person.score+'</td></tr>'
+
+        # Reset view
+        $('#brackets').click ->
+            $('#sign_in').show()
+            $('#leaderboard_list').remove()
+            $('.row').remove()
+
+        $('body').on 'click', 'tr', () ->
+
+            $('#sign_in').hide()
+
+            person_name = $(this).attr('id')
+
+            Meteor.call 'get_person', person_name, (e, person) ->
+
+                window.currentPerson = person
+
+                $('.row').remove()
+                $('.container').append Meteor.ui.render(Template.brackets)
+
+                populatePrefilledUI(person)
+
+
+populateUI = (person) ->
+    $('#save').show()
+    $('#welcome_message').show()
+    $('#welcome_message').html('Hey ' + window.currentPerson.name + '!')
+
+    $.each person.picks, (pick, team)->
+        $('#' + pick).val(team)
+        $('#' + pick).change()
+
+populatePrefilledUI = (person) ->
+    $.each person.picks, (pick, team)->
+        if $('#' + pick).find('option').length is 0
+            $('#' + pick).html('<option>'+team+'</option>')
+
+        $('#' + pick).val(team)
+        $('#' + pick).change()
