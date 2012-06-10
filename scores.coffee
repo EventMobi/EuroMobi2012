@@ -1,27 +1,3 @@
-Meteor.call("add_person", {
-    name : "Bijan6"
-    picks :
-        A1 : "Greence"
-        A2 : "Polance"
-        B1 : "Pontugal"
-        B2 : "Jermaney"
-        C1 : "Espoon"
-        C2 : "Eyetaly"
-        D1 : "Fancie"
-        D2 : "Sveeden"
-        Q1 : "Greence"
-        Q2 : "Jermaney"
-        Q3 : "Espoon"
-        Q4 : "Fancie"
-        S1 : "Jermaney"
-        S2 : "Espoon"
-        winner: "Espoon"
-        tiebreaker : 12
-    },
-    (error, result) ->
-        console.log result
-)
-
 calculate_persons_score = (person) ->
 
     total_score = 0
